@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+
+            function getComputerChoice() 
+            {
+                let random_num = Math.random();
+                if (random_num <= 0.33) 
+                {
+                    return "rock";
+                }
+                else if (random_num <= 0.66)
+                {
+                    return "paper";
+                }
+                else
+                {
+                    return "scissors";
+                }
+            }
+
+            function getHumanChoice()
+            {
+                let input = prompt("Type your choice")
+                return input.toLowerCase();
+            }
+
+            let humanScore = 0;
+            let computerScore = 0;
+
+            function playRound(humanChoice, computerChoice)
+            {
+                if ((humanChoice === "rock" && computerChoice === "scissors") ||
+                 (humanChoice === "paper" && computerChoice === "rock") ||
+                  (humanChoice === "scissors" && computerChoice === "paper"))
+                {
+                    console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
+                    humanScore++;
+                }
+
+                else if((computerChoice === "rock" && humanChoice === "scissors") ||
+                 (computerChoice === "paper" && humanChoice === "rock") || 
+                 (computerChoice === "scissors" && humanChoice === "paper"))
+                {
+                    console.log(`You lose! ${computerChoice} beats ${humanChoice}.`);
+                    computerScore++;
+                }
+                else
+                 {
+                    console.log(`You tied! You both chose ${humanChoice}.`);
+                 }
+                 console.log(`Score: You = ${humanScore}, Computer = ${computerScore}`);
+            }
+
+            function playGame()
+            {
+                for(let i = 0; i < 5; i++)
+                {
+                    playRound(getHumanChoice(), getComputerChoice());
+                }
+
+                if (humanScore > computerScore)
+                {
+                    console.log("Congratulations!!!, You win!!");
+                }
+
+                else if (computerScore)
+                {
+                    console.log("Commiserations, you lose.");
+                }
+
+                else
+                {
+                    console.log("The game ends in a tie.")
+                }
+
+            }
+
+            playGame();
+
+        </script>
+        
+    </body>
+</html>
