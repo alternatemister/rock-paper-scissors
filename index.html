@@ -6,8 +6,14 @@
         <title>Document</title>
     </head>
     <body>
-        <script>
+        
+        <button>rock</button>
+        <button>paper</button>
+        <button>scissors</button>
 
+        <div>Score will be displayed here</div>
+
+        <script>
             function getComputerChoice() 
             {
                 let random_num = Math.random();
@@ -25,12 +31,6 @@
                 }
             }
 
-            function getHumanChoice()
-            {
-                let input = prompt("Type your choice")
-                return input.toLowerCase();
-            }
-
             let humanScore = 0;
             let computerScore = 0;
 
@@ -40,50 +40,41 @@
                  (humanChoice === "paper" && computerChoice === "rock") ||
                   (humanChoice === "scissors" && computerChoice === "paper"))
                 {
-                    console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
                     humanScore++;
                 }
-
                 else if((computerChoice === "rock" && humanChoice === "scissors") ||
                  (computerChoice === "paper" && humanChoice === "rock") || 
                  (computerChoice === "scissors" && humanChoice === "paper"))
                 {
-                    console.log(`You lose! ${computerChoice} beats ${humanChoice}.`);
                     computerScore++;
                 }
-                else
-                 {
-                    console.log(`You tied! You both chose ${humanChoice}.`);
-                 }
-                 console.log(`Score: You = ${humanScore}, Computer = ${computerScore}`);
-            }
-
-            function playGame()
-            {
-                for(let i = 0; i < 5; i++)
+                if (humanScore >= 5)
                 {
-                    playRound(getHumanChoice(), getComputerChoice());
+                    scoreString = `Congratulations!!!, You win!! Final Score- You: ${humanScore}, Computer: ${computerScore}`
                 }
-
-                if (humanScore > computerScore)
+                else if (computerScore >= 5)
                 {
-                    console.log("Congratulations!!!, You win!!");
+                    scoreString = `Commiserations, you lose. Final Score- You: ${humanScore}, Computer: ${computerScore}`;
                 }
-
-                else if (computerScore)
-                {
-                    console.log("Commiserations, you lose.");
-                }
-
                 else
                 {
-                    console.log("The game ends in a tie.")
+                    scoreString =  `You: ${humanScore}, Computer: ${computerScore}`;
                 }
-
             }
 
-            playGame();
-
+            let humanChoice = "";
+            let scoreString = "";
+            const buttons = document.querySelectorAll("button");
+            const div = document.querySelector("div");
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    humanChoice = button.textContent;
+                    let computerChoice = getComputerChoice();
+                    playRound(humanChoice, computerChoice);
+                    div.innerText = `You selected: ${humanChoice}, the Computer Selected: ${computerChoice}
+                    \n${scoreString}`;
+                })
+            });
         </script>
         
     </body>
